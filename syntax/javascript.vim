@@ -89,7 +89,7 @@ syn keyword javascriptInvalidNumber Infinity NaN
 syn keyword javascriptIdentifier arguments this var let const class super module
 syn keyword javascriptLabel case default
 syn keyword javascriptException try catch finally throw
-syn keyword javascriptModule import from as
+syn keyword javascriptModule import from as export
 syn keyword javascriptFutureReserved enum extends
 syn keyword javascriptStrictReserved implements private public interface package protected static
 syn keyword javascriptFunction function
