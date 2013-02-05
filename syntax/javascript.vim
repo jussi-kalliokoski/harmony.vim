@@ -6,8 +6,12 @@
 " Options:
 " Warn about trailing semicolons
 "let g:javascript_warning_trailing_semicolon = 1
+" Warn about leading semicolons
+"let g:javascript_warning_leading_semicolon = 1
 " Warn about trailing spaces
 "let g:javascript_warning_trailing_space = 1
+" Warn about leading opening parens, brackets or braces
+"let g:javascript_warning_leading_opening_parens = 1
 " Interpret anything that starts with an uppercase letter as a class.
 "let g:javascript_enable_camelcase_classes = 1
 
@@ -18,15 +22,17 @@ endif
 
 " Optional warnings
 
-if exists('g:javascript_warning_trailing_semicolon')
-	syn match javascriptTrailingSemicolonWarning ";;*$"
-endif
 if exists('g:javascript_warning_trailing_space')
 	syn match javascriptTrailingSpaceWarning "\s\s*$"
+endif
+if exists('g:javascript_warning_trailing_semicolon')
+	syn match javascriptTrailingSemicolonWarning ";$"
 endif
 
 hi def link javascriptTrailingSemicolonWarning javascriptWarning
 hi def link javascriptTrailingSpaceWarning javascriptWarning
+hi def link javascriptLeadingParensWarning javascriptWarning
+hi def link javascriptLeadingSemicolonWarning javascriptWarning
 hi def link javascriptWarning Error
 
 hi def link javascriptComment Comment
@@ -166,6 +172,16 @@ hi def link javascriptDocumentation Comment
 hi def link javascriptDocParam Keyword
 hi def link javascriptDocType Delimiter
 hi def link javascriptDocTypeType Type
+
+" More optional warnings; they have to be at the end-ish to make a difference
+if exists('g:javascript_warning_leading_semicolon')
+	syn match javascriptLeadingSemicolonWarning ";" contained
+	syn match javascriptLeadingSemicolonLine "^\s*;" contains=javascriptLeadingSemicolonWarning
+endif
+if exists('g:javascript_warning_leading_opening_parens')
+	syn match javascriptLeadingParensWarning "[\[{(]" contained
+	syn match javascriptLeadingParensLine "^\s*[\[{(]" contains=javascriptLeadingParensWarning
+endif
 
 " Limits
 syn sync fromstart
