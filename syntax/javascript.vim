@@ -128,7 +128,7 @@ syn keyword javascriptErrorType Error EvalError RangeError ReferenceError Syntax
 syn keyword javascriptCollection Array Map WeakMap Set WeakSet Dict
 syn keyword javascriptTypedArray Uint8Array Uint16Array Uint32Array Uint8ClampedArray Int8Array Int16Array Int32Array Float32Array Float64Array ArrayBuffer DataView
 
-if exists('g:javascript_warning_trailing_semicolon')
+if exists('g:javascript_enable_camelcase_classes')
 	syn match javascriptClass /\<\u\w*\>/
 endif
 
