@@ -110,7 +110,7 @@ hi def link javascriptStrictReserved Keyword
 hi def link javascriptFunction Function
 
 " Globals
-syn keyword javascriptGlobal self window top parent window
+syn keyword javascriptGlobal self window top parent global
 syn keyword javascriptGlobalModule Math JSON
 syn keyword javascriptGlobalFunction eval parseInt parseFloat isNaN isFinite decodeURI decodeURIComponent encodeURI encodeURIComponent require
 syn keyword javascriptMember document event location console
