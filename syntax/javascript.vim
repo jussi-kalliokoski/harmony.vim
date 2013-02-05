@@ -105,6 +105,7 @@ hi def link javascriptInvalidNumber Number
 hi def link javascriptIdentifier Identifier
 hi def link javascriptLabel Label
 hi def link javascriptException Exception
+hi def link javascriptModule Keyword
 hi def link javascriptFutureReserved Keyword
 hi def link javascriptStrictReserved Keyword
 hi def link javascriptFunction Function
