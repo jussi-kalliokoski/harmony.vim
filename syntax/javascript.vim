@@ -26,12 +26,18 @@ if exists('g:javascript_warning_all')
 	let g:javascript_warning_leading_comma = 1
 	" Warn about trailing increments/decrements and leading plus/minus
 	let g:javascript_warning_plus_minus = 1
+	" Warn about leading dots
+	let g:javascript_warning_leading_dot = 1
+	" Warn about trailing dots
+	let g:javascript_warning_trailing_dot = 1
 endif
 
 hi def link javascriptTrailingSemicolonWarning javascriptWarning
+hi def link javascriptLeadingSemicolonWarning javascriptWarning
+hi def link javascriptTrailingDotWarning javascriptWarning
+hi def link javascriptLeadingDotWarning javascriptWarning
 hi def link javascriptTrailingSpaceWarning javascriptWarning
 hi def link javascriptLeadingParensWarning javascriptWarning
-hi def link javascriptLeadingSemicolonWarning javascriptWarning
 hi def link javascriptLeadingPlusMinusWarning javascriptWarning
 hi def link javascriptTrailingDecrementWarning javascriptWarning
 hi def link javascriptTrailingIncrementWarning javascriptWarning
@@ -176,12 +182,16 @@ hi def link javascriptDocParam Keyword
 hi def link javascriptDocType Delimiter
 hi def link javascriptDocTypeType Type
 
-" More optional warnings; they have to be at the end-ish to make a difference
+" Define optional warnings; they have to be at the end-ish to make a difference
 if exists('g:javascript_warning_trailing_space')
 	syn match javascriptTrailingSpaceWarning "\s\s*$"
 endif
 if exists('g:javascript_warning_trailing_semicolon')
 	syn match javascriptTrailingSemicolonWarning ";$"
+endif
+if exists('g:javascript_warning_leading_semicolon')
+	syn match javascriptLeadingSemicolonWarning ";" contained
+	syn match javascriptLeadingSemicolonLine "^\s*;" contains=javascriptLeadingSemicolonWarning
 endif
 if exists('g:javascript_warning_plus_minus')
 	syn match javascriptLeadingPlusMinusWarning "[-+]*" contained
@@ -193,13 +203,16 @@ if exists('g:javascript_warning_leading_comma')
 	syn match javascriptLeadingCommaWarning "," contained
 	syn match javascriptLeadingCommaLine "^\s*," contains=javascriptLeadingCommaWarning
 endif
-if exists('g:javascript_warning_leading_semicolon')
-	syn match javascriptLeadingSemicolonWarning ";" contained
-	syn match javascriptLeadingSemicolonLine "^\s*;" contains=javascriptLeadingSemicolonWarning
-endif
 if exists('g:javascript_warning_leading_opening_parens')
 	syn match javascriptLeadingParensWarning "[\[{(]" contained
 	syn match javascriptLeadingParensLine "^\s*[\[{(]" contains=javascriptLeadingParensWarning
+endif
+if exists('g:javascript_warning_leading_dot')
+	syn match javascriptLeadingDotWarning "\." contained
+	syn match javascriptLeadingDotLine "^\s*\." contains=javascriptLeadingDotWarning
+endif
+if exists('g:javascript_warning_trailing_dot')
+	syn match javascriptTrailingDotWarning /\.$/
 endif
 
 " Limits
