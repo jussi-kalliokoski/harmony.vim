@@ -8,6 +8,9 @@ if exists('b:current_syntax') && b:current_syntax == 'javascript'
 	finish
 endif
 
+" Interpret anything that starts with an uppercase letter as a class.
+"let g:javascript_enable_camelcase_classes = 1
+
 " Optional warnings
 
 if exists('g:javascript_warning_all')
@@ -19,10 +22,10 @@ if exists('g:javascript_warning_all')
 	let g:javascript_warning_trailing_space = 1
 	" Warn about leading opening parens, brackets or braces
 	let g:javascript_warning_leading_opening_parens = 1
+	" Warn about leading commas
+	let g:javascript_warning_leading_comma = 1
 	" Warn about trailing increments/decrements and leading plus/minus
 	let g:javascript_warning_plus_minus = 1
-	" Interpret anything that starts with an uppercase letter as a class.
-	let g:javascript_enable_camelcase_classes = 1
 endif
 
 if exists('g:javascript_warning_trailing_space')
@@ -37,6 +40,10 @@ if exists('g:javascript_warning_plus_minus')
 	syn match javascriptTrailingDecrementWarning "---*$"
 	syn match javascriptTrailingIncrementWarning "+++*$"
 endif
+if exists('g:javascript_warning_leading_comma')
+	syn match javascriptLeadingCommaWarning "," contained
+	syn match javascriptLeadingCommaLine "^\s*," contains=javascriptLeadingCommaWarning
+endif
 
 hi def link javascriptTrailingSemicolonWarning javascriptWarning
 hi def link javascriptTrailingSpaceWarning javascriptWarning
@@ -45,6 +52,7 @@ hi def link javascriptLeadingSemicolonWarning javascriptWarning
 hi def link javascriptLeadingPlusMinusWarning javascriptWarning
 hi def link javascriptTrailingDecrementWarning javascriptWarning
 hi def link javascriptTrailingIncrementWarning javascriptWarning
+hi def link javascriptLeadingCommaWarning javascriptWarning
 hi def link javascriptWarning Error
 
 hi def link javascriptComment Comment
