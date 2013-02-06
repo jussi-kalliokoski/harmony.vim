@@ -28,23 +28,6 @@ if exists('g:javascript_warning_all')
 	let g:javascript_warning_plus_minus = 1
 endif
 
-if exists('g:javascript_warning_trailing_space')
-	syn match javascriptTrailingSpaceWarning "\s\s*$"
-endif
-if exists('g:javascript_warning_trailing_semicolon')
-	syn match javascriptTrailingSemicolonWarning ";$"
-endif
-if exists('g:javascript_warning_plus_minus')
-	syn match javascriptLeadingPlusMinusWarning "[-+]*" contained
-	syn match javascriptLeadingPlusMinusLine "^\s*[+-][+-]*" contains=javascriptLeadingPlusMinusWarning
-	syn match javascriptTrailingDecrementWarning "---*$"
-	syn match javascriptTrailingIncrementWarning "+++*$"
-endif
-if exists('g:javascript_warning_leading_comma')
-	syn match javascriptLeadingCommaWarning "," contained
-	syn match javascriptLeadingCommaLine "^\s*," contains=javascriptLeadingCommaWarning
-endif
-
 hi def link javascriptTrailingSemicolonWarning javascriptWarning
 hi def link javascriptTrailingSpaceWarning javascriptWarning
 hi def link javascriptLeadingParensWarning javascriptWarning
@@ -194,6 +177,22 @@ hi def link javascriptDocType Delimiter
 hi def link javascriptDocTypeType Type
 
 " More optional warnings; they have to be at the end-ish to make a difference
+if exists('g:javascript_warning_trailing_space')
+	syn match javascriptTrailingSpaceWarning "\s\s*$"
+endif
+if exists('g:javascript_warning_trailing_semicolon')
+	syn match javascriptTrailingSemicolonWarning ";$"
+endif
+if exists('g:javascript_warning_plus_minus')
+	syn match javascriptLeadingPlusMinusWarning "[-+]*" contained
+	syn match javascriptLeadingPlusMinusLine "^\s*[+-][+-]*" contains=javascriptLeadingPlusMinusWarning
+	syn match javascriptTrailingDecrementWarning "---*$"
+	syn match javascriptTrailingIncrementWarning "+++*$"
+endif
+if exists('g:javascript_warning_leading_comma')
+	syn match javascriptLeadingCommaWarning "," contained
+	syn match javascriptLeadingCommaLine "^\s*," contains=javascriptLeadingCommaWarning
+endif
 if exists('g:javascript_warning_leading_semicolon')
 	syn match javascriptLeadingSemicolonWarning ";" contained
 	syn match javascriptLeadingSemicolonLine "^\s*;" contains=javascriptLeadingSemicolonWarning
