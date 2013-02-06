@@ -3,18 +3,6 @@
 " URL:        https://github.com/jussi-kalliokoski/harmony.vim
 " License:    MIT
 
-" Options:
-" Warn about trailing semicolons
-"let g:javascript_warning_trailing_semicolon = 1
-" Warn about leading semicolons
-"let g:javascript_warning_leading_semicolon = 1
-" Warn about trailing spaces
-"let g:javascript_warning_trailing_space = 1
-" Warn about leading opening parens, brackets or braces
-"let g:javascript_warning_leading_opening_parens = 1
-" Interpret anything that starts with an uppercase letter as a class.
-"let g:javascript_enable_camelcase_classes = 1
-
 " Bail if already loaded
 if exists('b:current_syntax') && b:current_syntax == 'javascript'
 	finish
@@ -22,17 +10,41 @@ endif
 
 " Optional warnings
 
+if exists('g:javascript_warning_all')
+	" Warn about trailing semicolons
+	let g:javascript_warning_trailing_semicolon = 1
+	" Warn about leading semicolons
+	let g:javascript_warning_leading_semicolon = 1
+	" Warn about trailing spaces
+	let g:javascript_warning_trailing_space = 1
+	" Warn about leading opening parens, brackets or braces
+	let g:javascript_warning_leading_opening_parens = 1
+	" Warn about trailing increments/decrements and leading plus/minus
+	let g:javascript_warning_plus_minus = 1
+	" Interpret anything that starts with an uppercase letter as a class.
+	let g:javascript_enable_camelcase_classes = 1
+endif
+
 if exists('g:javascript_warning_trailing_space')
 	syn match javascriptTrailingSpaceWarning "\s\s*$"
 endif
 if exists('g:javascript_warning_trailing_semicolon')
 	syn match javascriptTrailingSemicolonWarning ";$"
 endif
+if exists('g:javascript_warning_plus_minus')
+	syn match javascriptLeadingPlusMinusWarning "[-+]*" contained
+	syn match javascriptLeadingPlusMinusLine "^\s*[+-][+-]*" contains=javascriptLeadingPlusMinusWarning
+	syn match javascriptTrailingDecrementWarning "---*$"
+	syn match javascriptTrailingIncrementWarning "+++*$"
+endif
 
 hi def link javascriptTrailingSemicolonWarning javascriptWarning
 hi def link javascriptTrailingSpaceWarning javascriptWarning
 hi def link javascriptLeadingParensWarning javascriptWarning
 hi def link javascriptLeadingSemicolonWarning javascriptWarning
+hi def link javascriptLeadingPlusMinusWarning javascriptWarning
+hi def link javascriptTrailingDecrementWarning javascriptWarning
+hi def link javascriptTrailingIncrementWarning javascriptWarning
 hi def link javascriptWarning Error
 
 hi def link javascriptComment Comment
