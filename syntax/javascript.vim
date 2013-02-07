@@ -44,9 +44,18 @@ hi def link javascriptTrailingIncrementWarning javascriptWarning
 hi def link javascriptLeadingCommaWarning javascriptWarning
 hi def link javascriptWarning Error
 
-hi def link javascriptComment Comment
-hi def link javascriptLineComment Comment
-hi def link javascriptCommentTodo Todo
+" Operators
+syn match javascriptLogical /\%([!=]\?==\|[<>=!]=\|[<>]\)/
+syn match javascriptBinary /\%([&|^]\|>>>\|>>\|<<\|\~\)/
+syn match javascriptBinary /\%([+\-*\/%]\)/
+syn match javascriptAssign /\%([+\-*\/%&|^]\|>>>\|>>\|<<\)\?=/
+syn match javascriptDelimiter /[\.;,]/
+
+hi def link javascriptLogical Operator
+hi def link javascriptBinary Operator
+hi def link javascriptAssign Operator
+hi def link javascriptAlgebraic Operator
+hi def link javascriptDelimiter Delimiter
 
 " Pragmas
 syn match javascriptUseStrict "use strict" contained
@@ -77,9 +86,14 @@ hi def link javascriptQuasiVariable Delimiter
 hi def link javascriptQuasiLiteral String
 
 " Numbers
-syn match javascriptNumber "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>"
+syn match javascriptNumber /\i\@<![-+]\?\d\+\.\?\%([eE][+-]\?\d\+\)\?/
+syn match javascriptNumber /\<0[xX]\x\+\>/
+syn match javascriptNumber /\<0[bB][01]\+\>/
+syn match javascriptNumber /\<0[oO][0-7]\+\>/
+syn match javascriptFloat /\i\@<![-+]\?\d*\.\@<!\.\d\+\%([eE][+-]\?\d\+\)\?/
 
 hi def link javascriptNumber Number
+hi def link javascriptFloat Number
 
 " Regexes
 syn region javascriptRegexpString start=+/[^/*]+me=e-1 skip=+\\\\\|\\/+ end=+/[gi]\{0,2\}\s*$+ end=+/[gi]\{0,2\}\s*[;.,)\]}]+me=e-1 contains=@htmlPreproc oneline
@@ -91,6 +105,10 @@ syn keyword javascriptCommentTodo TODO FIXME XXX TBD contained
 syn match javascriptLineComment "\/\/.*" contains=@Spell,javascriptCommentSkip
 syn match javascriptCommentSkip "^[ \t]*\*\($\|[ \t]\+\)"
 syn region javascriptComment start="/\*" end="\*/" contains=@Spell,javascriptCommentTodo
+
+hi def link javascriptComment Comment
+hi def link javascriptLineComment Comment
+hi def link javascriptCommentTodo Todo
 
 " Built-in keywords
 syn keyword javascriptConditional if else switch
