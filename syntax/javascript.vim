@@ -8,6 +8,9 @@ if exists('b:current_syntax') && b:current_syntax == 'javascript'
 	finish
 endif
 
+" Enable dollar signs in identifiers
+setlocal isident+=$
+
 " Interpret anything that starts with an uppercase letter as a class.
 "let g:javascript_enable_camelcase_classes = 1
 
@@ -49,12 +52,14 @@ syn match javascriptLogical /\%([!=]\?==\|[<>=!]=\|[<>]\)/
 syn match javascriptBinary /\%([&|^]\|>>>\|>>\|<<\|\~\)/
 syn match javascriptBinary /\%([+\-*\/%]\)/
 syn match javascriptAssign /\%([+\-*\/%&|^]\|>>>\|>>\|<<\)\?=/
+syn match javascriptUnary /[\?:]/
 syn match javascriptDelimiter /[\.;,]/
 
 hi def link javascriptLogical Operator
 hi def link javascriptBinary Operator
 hi def link javascriptAssign Operator
 hi def link javascriptAlgebraic Operator
+hi def link javascriptUnary Delimiter
 hi def link javascriptDelimiter Delimiter
 
 " Pragmas
@@ -84,6 +89,28 @@ syn region javascriptQuasiLiteral start=+\w\w*`+ skip=+\\\\\|\\`+ end=+'\|$+ con
 hi def link javascriptQuasiVariableName Variable
 hi def link javascriptQuasiVariable Delimiter
 hi def link javascriptQuasiLiteral String
+
+" Identifiers, classnames, constants
+
+if exists('g:javascript_enable_camelcase_classes')
+	syn match javascriptClassName /\<\u\w*\>/
+endif
+if exists('g:javascript_enable_caps_constants')
+	syn match javascriptConstant /\<\u[A-Z0-9_]\+\>/
+endif
+
+hi def link javascriptClassName Structure
+hi def link javascriptConstant Constant
+
+syn cluster javascriptIdentifier contains=javascriptClassName,javascriptConstant
+
+" Property access, ignore keywords
+syn match javascriptDotAccess /\.\@<!\.\s*\I\i*/he=s+1 contains=@javascriptIdentifier
+hi def link javascriptDotAccess javascriptDelimiter
+
+" Labels
+syn match javascriptLabelDefine /@\?\I\i*\s*\ze::\@!/ contains=@javascriptIdentifier
+hi def link javascriptLabelDefine Identifier
 
 " Numbers
 syn match javascriptNumber /\i\@<![-+]\?\d\+\.\?\%([eE][+-]\?\d\+\)\?/
@@ -119,7 +146,7 @@ syn keyword javascriptStatement return with yield debugger
 syn keyword javascriptBoolean true false
 syn keyword javascriptNull null undefined
 syn keyword javascriptInvalidNumber Infinity NaN
-syn keyword javascriptIdentifier arguments this var let const class super module
+syn keyword javascriptDefine arguments this var let const class super module
 syn keyword javascriptLabel case default
 syn keyword javascriptException try catch finally throw
 syn keyword javascriptModule import from as export
@@ -135,7 +162,7 @@ hi def link javascriptStatement Statement
 hi def link javascriptBoolean Boolean
 hi def link javascriptNull Keyword
 hi def link javascriptInvalidNumber Number
-hi def link javascriptIdentifier Identifier
+hi def link javascriptDefine Statement
 hi def link javascriptLabel Label
 hi def link javascriptException Exception
 hi def link javascriptModule Keyword
@@ -162,15 +189,10 @@ syn keyword javascriptErrorType Error EvalError RangeError ReferenceError Syntax
 syn keyword javascriptCollection Array Map WeakMap Set WeakSet Dict
 syn keyword javascriptTypedArray Uint8Array Uint16Array Uint32Array Uint8ClampedArray Int8Array Int16Array Int32Array Float32Array Float64Array ArrayBuffer DataView
 
-if exists('g:javascript_enable_camelcase_classes')
-	syn match javascriptClass /\<\u\w*\>/
-endif
-
 hi def link javascriptType Type
 hi def link javascriptErrorType Type
 hi def link javascriptCollection Type
 hi def link javascriptTypedArray Type
-hi def link javascriptClass Type
 
 " Syntactic elements
 syn match javascriptBraces "[{}\[\]]"
@@ -182,12 +204,6 @@ hi def link javascriptBraces Delimiter
 hi def link javascriptParens Delimiter
 hi def link javascriptSpread Delimiter
 hi def link javascriptFatArrowFunction Function
-
-" Unused for now
-hi def link javascriptDebug Debug
-hi def link javascriptConstant Label
-hi def link javascriptCharacter Character
-hi def link javascriptError Error
 
 " jsdoc or similar documentation syntax
 syn region javascriptDocumentation start="/\*\*" end="\*/" contains=@Spell,javascriptDocParam,javascriptDocType
