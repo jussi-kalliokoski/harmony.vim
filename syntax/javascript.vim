@@ -104,7 +104,7 @@ syn match javascriptDotAccess /\.\@<!\.\s*\I\i*/he=s+1 contains=@javascriptIdent
 hi def link javascriptDotAccess javascriptDelimiter
 
 " Labels
-syn match javascriptLabelDefine /@\?\I\i*\s*\ze::\@!/ contains=@javascriptIdentifier
+syn match javascriptLabelDefine /\I\i*\s*\ze::\@!/ contains=@javascriptIdentifier
 hi def link javascriptLabelDefine Identifier
 
 " Numbers
@@ -201,13 +201,20 @@ hi def link javascriptSpread Delimiter
 hi def link javascriptFatArrowFunction Function
 
 " jsdoc or similar documentation syntax
-syn region javascriptDocumentation start="/\*\*" end="\*/" contains=@Spell,javascriptDocParam,javascriptDocType
-syn match javascriptDocTypeType /\<\u\w*\>/ contained containedin=javascriptDocType
-syn match javascriptDocParam "@\w*" contained containedin=javascriptDocumentation
-syn match javascriptDocType "{[^}][^}]*}" contained containedin=javascriptDocumentation
+syn region javascriptDocumentation start="/\*\*" end="\*/" contains=@Spell,javascriptDocParam
+" syn match javascriptDocTypeType /\<\u\w*\>/ contained containedin=javascriptDocType
+syn match javascriptDocParam "@.*$" contained containedin=javascriptDocumentation contains=javascriptDocInstruction
+syn match javascriptDocPArgument "@\(param\|arg\|opt\)\( \({[^}]\+}\)\)\? \I\i*" contained containedin=javascriptDocumentation
+syn match javascriptDocPReturn "@returns\?\( \({[^}]\+}\)\)\?" contained containedin=javascriptDocumentation
+syn match javascriptDocPDefine "@\(method\|class\|namespace\|inherits\)\( \(\I\i*\.\)*\I\i*\)\?" contained containedin=javascriptDocumentation
+syn match javascriptDocInstruction "@\w\+" contained containedin=javascriptDocParam,javascriptDocPArgument,javascriptDocPReturn,javascriptDocPDefine
+
+syn match javascriptDocType "{[^}]\+}" contained containedin=javascriptDocPArgument,javascriptDocPReturn
+syn match javascriptDocType " \(\I\i*\.\)*\I\i*" contained containedin=javascriptDocPDefine
+syn match javascriptDocTypeType "\<\I\i*\>" contained containedin=javascriptDocType,javascriptDocType
 
 hi def link javascriptDocumentation Comment
-hi def link javascriptDocParam Keyword
+hi def link javascriptDocInstruction Keyword
 hi def link javascriptDocType Delimiter
 hi def link javascriptDocTypeType Type
 
