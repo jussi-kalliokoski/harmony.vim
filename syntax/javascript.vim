@@ -252,7 +252,7 @@ if exists('g:javascript_warning_trailing_dot')
 endif
 
 " Pragmas
-syn match javascriptUseStrict +^"use strict";\?$+
+syn match javascriptUseStrict +^\s*"use strict";\?$+
 
 hi def link javascriptUseStrict PreProc
 
