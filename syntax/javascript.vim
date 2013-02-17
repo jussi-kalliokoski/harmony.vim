@@ -62,11 +62,6 @@ hi def link javascriptAlgebraic Operator
 hi def link javascriptUnary Delimiter
 hi def link javascriptDelimiter Delimiter
 
-" Pragmas
-syn match javascriptUseStrict "use strict" contained
-
-hi def link javascriptUseStrict PreProc
-
 " Specials
 syn match javascriptSpecial "\\\d\d\d\|\\."
 syn match javascriptSpecialCharacter "'\\.'"
@@ -75,8 +70,8 @@ hi def link javascriptSpecialCharacter javascriptSpecial
 hi def link javascriptSpecial Special
 
 " Strings
-syn region javascriptStringD start=+"+ skip=+\\\\\|\\"+ end=+"\|$+ contains=javascriptSpecial,javascriptUseStrict,@htmlPreproc
-syn region javascriptStringS start=+'+ skip=+\\\\\|\\'+ end=+'\|$+ contains=javascriptSpecial,javascriptUseStrict,@htmlPreproc
+syn region javascriptStringD start=+"+ skip=+\\\\\|\\"+ end=+"\|$+ contains=javascriptSpecial,@htmlPreproc
+syn region javascriptStringS start=+'+ skip=+\\\\\|\\'+ end=+'\|$+ contains=javascriptSpecial,@htmlPreproc
 
 hi def link javascriptStringS String
 hi def link javascriptStringD String
@@ -248,6 +243,11 @@ endif
 if exists('g:javascript_warning_trailing_dot')
 	syn match javascriptTrailingDotWarning /\.$/
 endif
+
+" Pragmas
+syn match javascriptUseStrict +^"use strict";\?$+
+
+hi def link javascriptUseStrict PreProc
 
 " Limits
 syn sync fromstart
