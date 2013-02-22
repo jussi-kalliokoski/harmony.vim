@@ -204,9 +204,9 @@ hi def link javascriptFatArrowFunction Function
 syn region javascriptDocumentation start="/\*\*" end="\*/" contains=@Spell,javascriptDocParam
 " syn match javascriptDocTypeType /\<\u\w*\>/ contained containedin=javascriptDocType
 syn match javascriptDocParam "@.*$" contained containedin=javascriptDocumentation contains=javascriptDocInstruction
-syn match javascriptDocPArgument "@\(param\|arg\|opt\)\( \({[^}]\+}\)\)\? \I\i*" contained containedin=javascriptDocumentation
+syn match javascriptDocPArgument "@\(param\|arg\|opt\)\( \({[^}]\+}\)\)\? [^ ]*" contained containedin=javascriptDocumentation
 syn match javascriptDocPReturn "@returns\?\( \({[^}]\+}\)\)\?" contained containedin=javascriptDocumentation
-syn match javascriptDocPDefine "@\(method\|class\|namespace\|inherits\)\( \(\I\i*\.\)*\I\i*\)\?" contained containedin=javascriptDocumentation
+syn match javascriptDocPDefine "@\(method\|class\|namespace\|inherits\|extends\)\( \(\I\i*\.\)*\I\i*\)\?" contained containedin=javascriptDocumentation
 syn match javascriptDocInstruction "@\w\+" contained containedin=javascriptDocParam,javascriptDocPArgument,javascriptDocPReturn,javascriptDocPDefine
 
 syn match javascriptDocType "{[^}]\+}" contained containedin=javascriptDocPArgument,javascriptDocPReturn
