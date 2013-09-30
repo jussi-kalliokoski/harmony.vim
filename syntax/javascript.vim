@@ -169,7 +169,7 @@ hi def link javascriptFunction Function
 syn keyword javascriptGlobal self window top parent global
 syn keyword javascriptGlobalModule Math JSON
 syn keyword javascriptGlobalFunction eval parseInt parseFloat isNaN isFinite decodeURI decodeURIComponent encodeURI encodeURIComponent require
-syn keyword javascriptMember document event location console
+syn keyword javascriptMember document event location console navigator
 syn keyword javascriptMessage alert confirm prompt status
 
 hi def link javascriptGlobal Constant
